@@ -1,3 +1,5 @@
+if (!"dplyr" %in% installed.packages()){ install.packages("dplyr")}
+library(dplyr)
 Electric <- read.table(file.choose(),
                        header=TRUE, sep=";",na.strings = "?",
                        stringsAsFactors = FALSE)
@@ -6,6 +8,7 @@ rm(Electric)
 a<-strptime(paste(Elec$Date, Elec$Time, sep = " "),"%d/%m/%Y %H:%M:%S")
 Elec<-cbind(Elec,DayTime=as.POSIXct(a))
 rm(a)
+png(file = "plot2.png", width = 480, height = 480)
 plot(Elec$DayTime,Elec$Global_active_power,type="l",ylab="Global Active Power (kilowatts)",xlab="")
-dev.copy(png, file = "plot2.png",width = 480, height = 480)
+###dev.copy(png, file = "plot2.png",width = 480, height = 480)
 dev.off()
